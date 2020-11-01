@@ -6,11 +6,17 @@
 #include <SDL_image.h>
 #include "Menu.h"
 #include "City.h"
+#include "Sprite.h"
+#include "Building.h"
+#include <vector>
+
+class Building;
 class Game
 {
     public:
         Game();
         ~Game();
+    Building* building;
 
     void init(const char* title, int x_pos, int y_pos, int width, int height, bool foolscreen);
 
@@ -18,6 +24,7 @@ class Game
     void update();
     void render();
     void clean();
+    void generate_buildings();
     static SDL_Event event;
 
     bool running()
@@ -26,6 +33,10 @@ class Game
     };
 
     private:
+    bool deleted;
+    int numb_deleted;
+    std::vector<Building*> random_building;
+    int building_counter;
     bool menu_running;
     bool is_running;
     SDL_Window *window;

@@ -37,16 +37,18 @@
 		<Linker>
 			<Add option="`sdl2-config --libs`" />
 		</Linker>
+		<Unit filename="include/Building.h" />
 		<Unit filename="include/City.h" />
 		<Unit filename="include/Game.h" />
-		<Unit filename="include/Game_object.h" />
 		<Unit filename="include/Menu.h" />
+		<Unit filename="include/Sprite.h" />
 		<Unit filename="include/Texture.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Building.cpp" />
 		<Unit filename="src/City.cpp" />
 		<Unit filename="src/Game.cpp" />
-		<Unit filename="src/Game_object.cpp" />
 		<Unit filename="src/Menu.cpp" />
+		<Unit filename="src/Sprite.cpp" />
 		<Unit filename="src/Texture.cpp" />
 		<Extensions />
 	</Project>

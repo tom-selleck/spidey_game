@@ -22,6 +22,9 @@ class City
         SDL_Texture* sky_texture_2;
         SDL_Rect building_rect_2, sky_rect_2;
         SDL_Renderer* renderer;
+
+        SDL_Rect b1, b2, b3, b4, b5;
+        SDL_Texture* t1;
 };
 
 #endif // CITY_H
