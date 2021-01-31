@@ -1,37 +1,37 @@
 #include "Building.h"
 
-Building::Building(SDL_Renderer* rendy)
+Building::Building(SDL_Renderer* rendy):vel(5.0)
 {
     srand(time(NULL));
     renderer = rendy;
-    t1 = Texture::load_texture("assets/building_1.png", rendy);
-    t2 = Texture::load_texture("assets/building_2.png", rendy);
-    t3 = Texture::load_texture("assets/building_3.png", rendy);
-    t4 = Texture::load_texture("assets/building_4.png", rendy);
-    t5 = Texture::load_texture("assets/building_5.png", rendy);
+    texture_1 = Texture::load_texture("assets/building_1.png", rendy);
+    texture_2 = Texture::load_texture("assets/building_2.png", rendy);
+    texture_3 = Texture::load_texture("assets/building_3.png", rendy);
+    texture_4 = Texture::load_texture("assets/building_4.png", rendy);
+    texture_5 = Texture::load_texture("assets/building_5.png", rendy);
 
-    int seed = (( std::rand() % 5 ) + 1 );
+    seed = (( std::rand() % 5 ) + 1 );
     std::cout<< "Seed value: " << seed << std::endl;
     switch(seed) {
 
     case 1:
-    texture = t1;
+    texture = texture_1;
     break;
 
     case 2:
-    texture = t2;
+    texture = texture_2;
     break;
 
     case 3:
-    texture = t3;
+    texture = texture_3;
     break;
 
     case 4:
-    texture = t4;
+    texture = texture_4;
     break;
 
     case 5:
-    texture = t5;
+    texture = texture_5;
     break;
 
     default:
@@ -39,23 +39,28 @@ Building::Building(SDL_Renderer* rendy)
     break;
     }
 
-   x = 1600 - (( std::rand() % 200 ) + 1 );
+   x = 1600.0 - (( std::rand() % 200 ) + 1 );
    std::cout<< "Building x value: " << x << std::endl;
 }
 
+
+
 int Building::get_x()
 {
-    x-=2;
     return x;
 }
 
 void Building::render_building()
 {
+
+    x-=vel;
     building = { x,-200, 200,800};
     SDL_RenderCopy(renderer, texture, NULL, &building);
+
 }
 
 Building::~Building()
 {
+    std::cout << "OBJ deleted" << std::endl;
 
 }

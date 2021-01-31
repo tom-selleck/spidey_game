@@ -11,13 +11,19 @@
 #include <vector>
 
 class Building;
+class Menu;
+class City;
+class Sprite;
+
 class Game
 {
     public:
         Game();
         ~Game();
     Building* building;
-
+    Menu *menu;
+    City *city;
+    Sprite* sprite;
     void init(const char* title, int x_pos, int y_pos, int width, int height, bool foolscreen);
 
     void handle_events();
@@ -36,6 +42,7 @@ class Game
     bool deleted;
     int numb_deleted;
     std::vector<Building*> random_building;
+    SDL_Rect camera;
     int building_counter;
     bool menu_running;
     bool is_running;

@@ -10,7 +10,7 @@ class City
         City(SDL_Renderer* rendy);
        ~City();
 
-        void update_city();
+        void update_city(int sprite_x);
         void render_city();
 
 

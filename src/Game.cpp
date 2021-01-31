@@ -2,73 +2,42 @@
 #include "Texture.h"
 
 SDL_Event Game::event;
-Menu* menu;
-City* city;
-Sprite* sprite;
 
 
 
-
-
-
-Game::Game(): menu_running(1), building_counter(0), deleted(0), numb_deleted(0)
+Game::Game(): menu_running(1), building_counter(0), deleted(0), numb_deleted(0),menu(nullptr),city(nullptr),sprite(nullptr),building(nullptr)
 {
-
+    camera={0,0,800,600};
+    random_building.push_back(new Building(renderer));
+    building_counter += 1;
 }
-
 Game::~Game()
 {
+
 
 }
 
 void Game::generate_buildings()
 {
 
-    if(building_counter < 1)
+if(random_building.back()->get_x() < 1200)
     {
-
-        //    for(int i = 0; i < 10; ++i)
-        // {
-        random_building.insert(random_building.begin()+building_counter,new Building(renderer));
-        std::cout<<"Building number: " << building_counter << " created" << std::endl;
-         building_counter += 1;
-        // }
+        random_building.push_back(new Building(renderer));
+        building_counter +=1;
     }
 
-    else if(building_counter > 0 && building_counter < 10 && random_building[building_counter-1]->get_x() < 1200)
+if(random_building.front()->get_x() < - 200)
     {
-        if(deleted == 0)
-        {
-            random_building.insert(random_building.begin()+building_counter,new Building(renderer));
-            building_counter += 1;
-            std::cout<<"Building number: "<<  building_counter << " created" << std::endl;
-        }
-
-        else if(deleted == true && building_counter < 9)
-        {
-            random_building.insert(random_building.begin()+numb_deleted,new Building(renderer));
-            building_counter += 1;
-            std::cout<<"Building number: "<<  numb_deleted << " created" << std::endl;
-        }
+        delete random_building.front();
+        random_building.erase(random_building.begin());
+        building_counter -=1;
+        std::cout << "Current building number: " << building_counter << std::endl;
+        std::cout << "Current random_building size: " << random_building.size() << std::endl;
     }
-
-    for(int i = 0; i < building_counter-1; ++i)
-    {
-        if(random_building[i]->get_x()< - 400)
-        {
-            random_building.erase(random_building.begin()+i);
-
-            std::cout<<"Building number: " << i << " deleted"<<std::endl;
-            building_counter -= 1;
-            deleted = 1;
-            numb_deleted = i;
-
-        }
-
-    }
-
-
 }
+
+
+
 
 
 
@@ -89,7 +58,7 @@ void Game::init(const char* title, int x_pos, int y_pos, int width, int height, 
             std::cout << "Window created." << std::endl;
         }
 
-        renderer = SDL_CreateRenderer(window, -1 ,0);
+        renderer = SDL_CreateRenderer(window, -1 ,SDL_RENDERER_PRESENTVSYNC);
         if(renderer)
         {
         SDL_SetRenderDrawColor(renderer, 255,255,255,255);
@@ -106,7 +75,7 @@ void Game::init(const char* title, int x_pos, int y_pos, int width, int height, 
     menu = new Menu(renderer);
     city = new City(renderer);
     sprite = new Sprite(renderer);
-   // building = new Building(renderer);
+
 }
 void Game::handle_events()
 {
@@ -124,8 +93,13 @@ void Game::handle_events()
 }
 void Game::update()
 {
-    city->update_city();
+
+
+    city->update_city(camera.x);
     sprite->update_sprite();
+
+    camera.x = ((sprite->get_sprite_x()+40))-400;
+
     if(event.key.keysym.sym == SDLK_ESCAPE)
     {
         menu_running = 1;
@@ -163,7 +137,7 @@ void Game::render()
     {
     city->render_city();
 
-    for(int i = 0; i < building_counter; ++i)
+    for(int i = 0; i < random_building.size(); i++)
     {
         random_building[i]->render_building();
     }

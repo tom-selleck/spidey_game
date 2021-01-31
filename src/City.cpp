@@ -22,7 +22,7 @@ City::~City()
     //dtor
 }
 
-void City::update_city()
+void City::update_city(int sprite_x)
 {
     if(x_1<=-1600)
     {

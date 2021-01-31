@@ -9,19 +9,26 @@ class Sprite
         Sprite(SDL_Renderer* rendy);
         virtual ~Sprite();
 
-        int update_sprite();
+        void update_sprite();
         void render_sprite();
-
+        int get_sprite_x();
     protected:
 
     private:
         Uint32 ticks;
-        Uint32 sprite;
+        Uint32 sprite_x;
         SDL_Rect srcrect;
         SDL_Rect dstrect;
         SDL_Renderer* renderer;
-        SDL_Texture* sprite_texture;
-        int x,y, velocity;
+        SDL_Texture* sprite_texture_right;
+        SDL_Texture* sprite_texture_left;
+        float x,y, velocity;
+        Uint32 t_0;
+        int t_1, d_t;
+        bool moving;
+
+
+
 };
 
 #endif // SPRITE_H
